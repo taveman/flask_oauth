@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+    <div class="flex-column justify-content-center container">
+        <div class="p-2">
+            <img class="avatar" src="{{userinfo['picture']}}"/>
+            <div class="h2">Welcome {{userinfo['name']}}</div>
+        </div>
+        <div class="logged-in-box auth0-box logged-in d-flex justify-content-center">
+            <div class="p-2">
+                <ul>
+                    {% for key, val in user_data.items() %}
+                        <li>{{ key }}: {{ val }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="p-2">
+            <a class="btn btn-primary btn-lg btn-logout btn-block" href="/logout">Logout</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    hostname: flask_app
+    environment:
+      FLASK_APP: app.py
+      FLASK_ENV: development
+      FLASK_HOST: 0.0.0.0
+      FLASK_DEBUG: 0
+      CLIENT_ID:
+      CLIENT_SECRET:
+      API_BASE_URL:
+      ACCESS_TOKEN_URL:
+      AUTHORIZE_URL:
+    command: bash -c "gunicorn --reload --bind=0.0.0.0:8000 app:app"
+    volumes:
+      - './app:/app'
+    depends_on:
+      - nginx
+
+  nginx:
+    image: nginx:1.21.3-alpine
+    hostname: nginx
+    ports:
+      - '8000:8000'
+      - '8008:8008'
+    volumes:
+      - './nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+      - './nginx/configs/ssl/certs/nginx-selfsigned.crt:/etc/ssl/certs/nginx-selfsigned.crt'
+      - './nginx/configs/ssl/private/nginx-selfsigned.key:/etc/ssl/private/nginx-selfsigned.key'
