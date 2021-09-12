@@ -30,3 +30,11 @@ Or you can set up the same values as environment variables in docker-compose.yml
   "AUTHORIZE_URL": "https://<your domain taken from the AuthO application settings>/authorize"
 }
 ```
+
+### 4. Start application up
+
+```bash
+    docker-compose up --build
+```
+
+Now go to the https://127.0.0.1:8008/ and press Login
